@@ -98,8 +98,10 @@ class ViewController: UIViewController, WKScriptMessageHandler {
         self.webView.evaluateJavaScript("isCameraOpened();") { (result, error) in
             if error == nil {
                 if result as! String == "yes" {
+                    print("resume scan")
                     self.webView.evaluateJavaScript("resumeScan();")
                 }else{
+                    print("start scan")
                     self.webView.evaluateJavaScript("startScan();")
                 }
             }
@@ -134,13 +136,18 @@ class ViewController: UIViewController, WKScriptMessageHandler {
     
     @objc func applicationWillResignActive(notification: NSNotification){
         print("entering background")
-        self.webView.evaluateJavaScript("pauseScan();")
+        if self.webView.isHidden == false {
+            print("Scanner is on, stop scan")
+            self.webView.evaluateJavaScript("stopScan();")
+        }
     }
     
     @objc func applicationDidBecomeActive(notification: NSNotification) {
         print("back active")
-        self.webView.reload()
-        self.webView.isHidden = true
+        if self.webView.isHidden == false {
+            print("Scanner is on, start scan")
+            self.webView.evaluateJavaScript("startScan();")
+        }
     }
     
     func userContentController(_ userContentController: WKUserContentController, didReceive message: WKScriptMessage) {

@@ -52,6 +52,14 @@ function isCameraOpened(){
   }
 }
 
+function stopScan(){
+  if (localStream) {
+    clearInterval(interval);
+    stop();
+    localStream = null;
+  }
+}
+
 function startScan(){
   console.log("start scan");
   decoding = false;

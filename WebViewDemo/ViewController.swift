@@ -12,7 +12,7 @@ class ViewController: UIViewController, WKScriptMessageHandler {
     func userContentController(_ userContentController: WKUserContentController, didReceive message: WKScriptMessage) {
         if message.name == "onScanned" {
             self.webView.isHidden = true
-            self.button.isHidden = false
+            self.resultLabel.text = message.body as? String
             print("JavaScript is sending a message \(message.body)")
         }
     }
@@ -20,6 +20,7 @@ class ViewController: UIViewController, WKScriptMessageHandler {
 
     var webView: WKWebView!
     var button: UIButton!
+    var resultLabel: UILabel!
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
@@ -36,11 +37,6 @@ class ViewController: UIViewController, WKScriptMessageHandler {
         
         //create the webView with the custom configuration.
         self.webView = WKWebView(frame: .zero, configuration: configuration)
-
-        
-        //Set the WebView's delegate.
-        //self.webView.navigationDelegate = self //Delegate that handles page navigation
-        //self.webView.uiDelegate = self //Delegate that handles new tabs, windows, popups, layout, etc..
         
         self.button = UIButton(frame: .zero)
         self.button.setTitle("Scan Barcodes", for: .normal)
@@ -52,8 +48,15 @@ class ViewController: UIViewController, WKScriptMessageHandler {
                          for: .touchUpInside)
         
         
-        self.view.addSubview(self.webView)
+        self.resultLabel = UILabel()
+        self.resultLabel.textAlignment = NSTextAlignment.center
+        self.resultLabel.numberOfLines = 0
+        self.resultLabel.lineBreakMode = .byCharWrapping
+        
+        self.view.addSubview(self.resultLabel)
         self.view.addSubview(self.button)
+        self.view.addSubview(self.webView)
+        
         self.webView.isHidden = true
         if let indexURL = Bundle.main.url(forResource: "scanner",
                                           withExtension: "html") {
@@ -68,7 +71,6 @@ class ViewController: UIViewController, WKScriptMessageHandler {
             print("still loading")
         }else{
             self.webView.isHidden = false
-            self.button.isHidden = true
             startScan();
         }
         //let url = URL(string:"https://blog.xulihang.me/barcode-detection-api-demo/scanner.html")
@@ -104,6 +106,13 @@ class ViewController: UIViewController, WKScriptMessageHandler {
             let x = view.frame.width/2 - width/2
             let y = view.frame.height - 100
             button.frame = CGRect.init(x: x, y: y, width: width, height: height)
+        }
+        if let label = self.resultLabel {
+            let width: CGFloat = 300
+            let height: CGFloat = 200
+            let x = view.frame.width/2 - width/2
+            let y = 50.0
+            label.frame = CGRect.init(x: x, y: y, width: width, height: height)
         }
     }
 }

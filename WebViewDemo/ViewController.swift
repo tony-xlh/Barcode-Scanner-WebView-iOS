@@ -23,6 +23,11 @@ class ViewController: UIViewController, WKScriptMessageHandler {
     var resultLabel: UILabel!
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(applicationDidBecomeActive), name: UIApplication.didBecomeActiveNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(applicationWillResignActive), name: UIApplication.willResignActiveNotification, object: nil)
+
         // Do any additional setup after loading the view.
         let configuration = WKWebViewConfiguration()
         configuration.allowsInlineMediaPlayback = true
@@ -114,6 +119,17 @@ class ViewController: UIViewController, WKScriptMessageHandler {
             let y = 50.0
             label.frame = CGRect.init(x: x, y: y, width: width, height: height)
         }
+    }
+    
+    @objc func applicationWillResignActive(notification: NSNotification){
+        print("entering background")
+        self.webView.evaluateJavaScript("pauseScan();")
+    }
+    
+    @objc func applicationDidBecomeActive(notification: NSNotification) {
+        print("back active")
+        self.webView.reload()
+        self.webView.isHidden = true
     }
 }
 

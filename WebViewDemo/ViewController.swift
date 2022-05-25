@@ -7,23 +7,24 @@
 
 import UIKit
 import WebKit
+import GCDWebServer
 
 class ViewController: UIViewController, WKScriptMessageHandler {
-    func userContentController(_ userContentController: WKUserContentController, didReceive message: WKScriptMessage) {
-        if message.name == "onScanned" {
-            self.webView.isHidden = true
-            self.resultLabel.text = message.body as? String
-            print("JavaScript is sending a message \(message.body)")
-        }
-    }
     
-
+    var webServer:GCDWebServer!;
     var webView: WKWebView!
     var button: UIButton!
     var resultLabel: UILabel!
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        self.webServer = GCDWebServer()
+        
+        let websitePath = Bundle.main.path(forResource: "www", ofType: nil)
+        // Add a default handler to serve static files (i.e. anything other than HTML files)
+        self.webServer.addGETHandler(forBasePath: "/", directoryPath: websitePath!, indexFilename: nil, cacheAge: 3600, allowRangeRequests: true)
+        
+        startServer()
         
         NotificationCenter.default.addObserver(self, selector: #selector(applicationDidBecomeActive), name: UIApplication.didBecomeActiveNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(applicationWillResignActive), name: UIApplication.willResignActiveNotification, object: nil)
@@ -63,11 +64,22 @@ class ViewController: UIViewController, WKScriptMessageHandler {
         self.view.addSubview(self.webView)
         
         self.webView.isHidden = true
-        if let indexURL = Bundle.main.url(forResource: "scanner",
-                                          withExtension: "html", subdirectory: "www") {
-            self.webView.loadFileURL(indexURL,
-                                     allowingReadAccessTo: indexURL)
-        }
+        
+        
+        let url = URL(string:"http://127.0.0.1:8888/scanner.html")
+        let request = URLRequest(url: url!)
+        self.webView.load(request)
+        
+        //if let indexURL = Bundle.main.url(forResource: "scanner",
+        //                                  withExtension: "html", subdirectory: "www") {
+        //    self.webView.loadFileURL(indexURL,
+        //                             allowingReadAccessTo: indexURL)
+        //}
+    }
+    
+    func startServer(){
+        
+        self.webServer.start(withPort: 8888, bonjourName: "GCD Web Server")
     }
     
     @objc
@@ -78,9 +90,7 @@ class ViewController: UIViewController, WKScriptMessageHandler {
             self.webView.isHidden = false
             startScan();
         }
-        //let url = URL(string:"https://blog.xulihang.me/barcode-detection-api-demo/scanner.html")
-        //let request = URLRequest(url: url!)
-        //self.webView.load(request)
+
     }
     
     func startScan(){
@@ -130,6 +140,14 @@ class ViewController: UIViewController, WKScriptMessageHandler {
         print("back active")
         self.webView.reload()
         self.webView.isHidden = true
+    }
+    
+    func userContentController(_ userContentController: WKUserContentController, didReceive message: WKScriptMessage) {
+        if message.name == "onScanned" {
+            self.webView.isHidden = true
+            self.resultLabel.text = message.body as? String
+            print("JavaScript is sending a message \(message.body)")
+        }
     }
 }
 

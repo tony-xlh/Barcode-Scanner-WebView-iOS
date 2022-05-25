@@ -22,6 +22,6 @@
 		</dict>
 	</dict>
 	<key>NSCameraUsageDescription</key>
-    <string>For barcode scanning</string>
+	<string>For barcode scanning</string>
 </dict>
 </plist>

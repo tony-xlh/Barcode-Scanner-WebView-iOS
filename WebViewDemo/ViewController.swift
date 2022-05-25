@@ -16,6 +16,12 @@ class ViewController: UIViewController, WKNavigationDelegate, WKUIDelegate {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         let configuration = WKWebViewConfiguration()
+        configuration.allowsInlineMediaPlayback = true
+        if #available(iOS 9.0, *){
+            configuration.requiresUserActionForMediaPlayback = false
+        }else{
+            configuration.mediaPlaybackRequiresUserAction = false
+        }
         let contentController = WKUserContentController()
         configuration.userContentController = contentController
         
@@ -43,7 +49,7 @@ class ViewController: UIViewController, WKNavigationDelegate, WKUIDelegate {
     @objc
     func buttonAction() {
         self.webView.isHidden = false
-        let url = URL(string:"https://imaginative-crisp-e281c3.netlify.app/home")
+        let url = URL(string:"https://blog.xulihang.me/barcode-detection-api-demo/scanner.html")
         let request = URLRequest(url: url!)
         self.webView.load(request)
     }
@@ -66,6 +72,5 @@ class ViewController: UIViewController, WKNavigationDelegate, WKUIDelegate {
             button.frame = CGRect.init(x: x, y: y, width: width, height: height)
         }
     }
-
 }
 

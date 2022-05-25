@@ -59,7 +59,7 @@ class ViewController: UIViewController, WKScriptMessageHandler {
         
         self.webView.isHidden = true
         if let indexURL = Bundle.main.url(forResource: "scanner",
-                                          withExtension: "html") {
+                                          withExtension: "html", subdirectory: "www") {
             self.webView.loadFileURL(indexURL,
                                      allowingReadAccessTo: indexURL)
         }

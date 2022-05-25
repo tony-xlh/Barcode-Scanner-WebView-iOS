@@ -8,7 +8,15 @@
 import UIKit
 import WebKit
 
-class ViewController: UIViewController, WKNavigationDelegate, WKUIDelegate {
+class ViewController: UIViewController, WKScriptMessageHandler {
+    func userContentController(_ userContentController: WKUserContentController, didReceive message: WKScriptMessage) {
+        if message.name == "onScanned" {
+            self.webView.isHidden = true
+            self.button.isHidden = false
+            print("JavaScript is sending a message \(message.body)")
+        }
+    }
+    
 
     var webView: WKWebView!
     var button: UIButton!
@@ -23,13 +31,16 @@ class ViewController: UIViewController, WKNavigationDelegate, WKUIDelegate {
             configuration.mediaPlaybackRequiresUserAction = false
         }
         let contentController = WKUserContentController()
+        contentController.add(self,name: "onScanned")
         configuration.userContentController = contentController
         
         //create the webView with the custom configuration.
         self.webView = WKWebView(frame: .zero, configuration: configuration)
+
+        
         //Set the WebView's delegate.
-        self.webView.navigationDelegate = self //Delegate that handles page navigation
-        self.webView.uiDelegate = self //Delegate that handles new tabs, windows, popups, layout, etc..
+        //self.webView.navigationDelegate = self //Delegate that handles page navigation
+        //self.webView.uiDelegate = self //Delegate that handles new tabs, windows, popups, layout, etc..
         
         self.button = UIButton(frame: .zero)
         self.button.setTitle("Scan Barcodes", for: .normal)
@@ -44,19 +55,37 @@ class ViewController: UIViewController, WKNavigationDelegate, WKUIDelegate {
         self.view.addSubview(self.webView)
         self.view.addSubview(self.button)
         self.webView.isHidden = true
-    }
-    
-    @objc
-    func buttonAction() {
-        self.webView.isHidden = false
         if let indexURL = Bundle.main.url(forResource: "scanner",
                                           withExtension: "html") {
             self.webView.loadFileURL(indexURL,
                                      allowingReadAccessTo: indexURL)
         }
+    }
+    
+    @objc
+    func buttonAction() {
+        if self.webView.isLoading {
+            print("still loading")
+        }else{
+            self.webView.isHidden = false
+            self.button.isHidden = true
+            startScan();
+        }
         //let url = URL(string:"https://blog.xulihang.me/barcode-detection-api-demo/scanner.html")
         //let request = URLRequest(url: url!)
         //self.webView.load(request)
+    }
+    
+    func startScan(){
+        self.webView.evaluateJavaScript("isCameraOpened();") { (result, error) in
+            if error == nil {
+                if result as! String == "yes" {
+                    self.webView.evaluateJavaScript("resumeScan();")
+                }else{
+                    self.webView.evaluateJavaScript("startScan();")
+                }
+            }
+        }
     }
     
     override func viewDidLayoutSubviews() {

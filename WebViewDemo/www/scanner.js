@@ -6,6 +6,18 @@ var scannerContainer = document.querySelector(".scanner");
 var home = document.querySelector(".home");
 var timeoutAfterScan = 100;
 document.getElementsByClassName("camera")[0].addEventListener('loadeddata',onPlayed, false);
+var closeButton = document.querySelector("#closeButton");
+closeButton.onclick = function() {
+  stop();
+  localStream = null;
+  scannerContainer.style.display = "none";
+  home.style.display = "";
+  try {
+    webkit.messageHandlers.close.postMessage("");
+  } catch(err) {
+    console.log('The native context does not exist yet');
+  }
+}
 
 init();
 

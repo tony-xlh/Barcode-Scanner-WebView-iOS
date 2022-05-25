@@ -39,6 +39,7 @@ class ViewController: UIViewController, WKScriptMessageHandler {
         }
         let contentController = WKUserContentController()
         contentController.add(self,name: "onScanned")
+        contentController.add(self,name: "close")
         configuration.userContentController = contentController
         
         //create the webView with the custom configuration.
@@ -147,6 +148,8 @@ class ViewController: UIViewController, WKScriptMessageHandler {
             self.webView.isHidden = true
             self.resultLabel.text = message.body as? String
             print("JavaScript is sending a message \(message.body)")
+        } else if message.name == "close" {
+            self.webView.isHidden = true
         }
     }
 }

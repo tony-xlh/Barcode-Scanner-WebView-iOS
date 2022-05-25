@@ -7,9 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		BE857B7E283DF5E2009A6FB0 /* scanner.css in Resources */ = {isa = PBXBuildFile; fileRef = BE857B7B283DF5E2009A6FB0 /* scanner.css */; };
-		BE857B7F283DF5E2009A6FB0 /* scanner.html in Resources */ = {isa = PBXBuildFile; fileRef = BE857B7C283DF5E2009A6FB0 /* scanner.html */; };
-		BE857B80283DF5E2009A6FB0 /* scanner.js in Resources */ = {isa = PBXBuildFile; fileRef = BE857B7D283DF5E2009A6FB0 /* scanner.js */; };
+		BE857B84283DFEAC009A6FB0 /* scanner.css in Resources */ = {isa = PBXBuildFile; fileRef = BE857B81283DFEAC009A6FB0 /* scanner.css */; };
+		BE857B85283DFEAC009A6FB0 /* scanner.html in Resources */ = {isa = PBXBuildFile; fileRef = BE857B82283DFEAC009A6FB0 /* scanner.html */; };
+		BE857B86283DFEAC009A6FB0 /* scanner.js in Resources */ = {isa = PBXBuildFile; fileRef = BE857B83283DFEAC009A6FB0 /* scanner.js */; };
 		BE91142D283CBE1500B763DA /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE91142C283CBE1500B763DA /* AppDelegate.swift */; };
 		BE91142F283CBE1500B763DA /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE91142E283CBE1500B763DA /* SceneDelegate.swift */; };
 		BE911431283CBE1500B763DA /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE911430283CBE1500B763DA /* ViewController.swift */; };
@@ -19,9 +19,9 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		BE857B7B283DF5E2009A6FB0 /* scanner.css */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.css; name = scanner.css; path = ../../../Desktop/https/scanner.css; sourceTree = "<group>"; };
-		BE857B7C283DF5E2009A6FB0 /* scanner.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; name = scanner.html; path = ../../../Desktop/https/scanner.html; sourceTree = "<group>"; };
-		BE857B7D283DF5E2009A6FB0 /* scanner.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; name = scanner.js; path = ../../../Desktop/https/scanner.js; sourceTree = "<group>"; };
+		BE857B81283DFEAC009A6FB0 /* scanner.css */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.css; path = scanner.css; sourceTree = "<group>"; };
+		BE857B82283DFEAC009A6FB0 /* scanner.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = scanner.html; sourceTree = "<group>"; };
+		BE857B83283DFEAC009A6FB0 /* scanner.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = scanner.js; sourceTree = "<group>"; };
 		BE911429283CBE1400B763DA /* WebViewDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WebViewDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BE91142C283CBE1500B763DA /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		BE91142E283CBE1500B763DA /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -62,9 +62,9 @@
 		BE91142B283CBE1400B763DA /* WebViewDemo */ = {
 			isa = PBXGroup;
 			children = (
-				BE857B7B283DF5E2009A6FB0 /* scanner.css */,
-				BE857B7C283DF5E2009A6FB0 /* scanner.html */,
-				BE857B7D283DF5E2009A6FB0 /* scanner.js */,
+				BE857B81283DFEAC009A6FB0 /* scanner.css */,
+				BE857B82283DFEAC009A6FB0 /* scanner.html */,
+				BE857B83283DFEAC009A6FB0 /* scanner.js */,
 				BE91142C283CBE1500B763DA /* AppDelegate.swift */,
 				BE91142E283CBE1500B763DA /* SceneDelegate.swift */,
 				BE911430283CBE1500B763DA /* ViewController.swift */,
@@ -134,10 +134,10 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				BE857B7E283DF5E2009A6FB0 /* scanner.css in Resources */,
-				BE857B7F283DF5E2009A6FB0 /* scanner.html in Resources */,
+				BE857B84283DFEAC009A6FB0 /* scanner.css in Resources */,
+				BE857B85283DFEAC009A6FB0 /* scanner.html in Resources */,
 				BE911439283CBE1600B763DA /* LaunchScreen.storyboard in Resources */,
-				BE857B80283DF5E2009A6FB0 /* scanner.js in Resources */,
+				BE857B86283DFEAC009A6FB0 /* scanner.js in Resources */,
 				BE911436283CBE1600B763DA /* Assets.xcassets in Resources */,
 				BE911434283CBE1500B763DA /* Main.storyboard in Resources */,
 			);

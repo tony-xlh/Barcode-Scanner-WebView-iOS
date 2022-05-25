@@ -66,7 +66,7 @@ class ViewController: UIViewController, WKScriptMessageHandler {
         self.webView.isHidden = true
         
         
-        let url = URL(string:"http://127.0.0.1:8888/scanner.html")
+        let url = URL(string:"http://localhost:8888/scanner.html")
         let request = URLRequest(url: url!)
         self.webView.load(request)
         

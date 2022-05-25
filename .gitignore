@@ -29,6 +29,12 @@ DerivedData
 *.xcuserstate
 project.xcworkspace
 
+
+# Cocoa pods
+
+Pods
+Podfile.lock
+
 # Android/IJ
 #
 .classpath

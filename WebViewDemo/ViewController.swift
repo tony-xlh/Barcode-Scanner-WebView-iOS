@@ -49,9 +49,14 @@ class ViewController: UIViewController, WKNavigationDelegate, WKUIDelegate {
     @objc
     func buttonAction() {
         self.webView.isHidden = false
-        let url = URL(string:"https://blog.xulihang.me/barcode-detection-api-demo/scanner.html")
-        let request = URLRequest(url: url!)
-        self.webView.load(request)
+        if let indexURL = Bundle.main.url(forResource: "scanner",
+                                          withExtension: "html") {
+            self.webView.loadFileURL(indexURL,
+                                     allowingReadAccessTo: indexURL)
+        }
+        //let url = URL(string:"https://blog.xulihang.me/barcode-detection-api-demo/scanner.html")
+        //let request = URLRequest(url: url!)
+        //self.webView.load(request)
     }
     
     override func viewDidLayoutSubviews() {

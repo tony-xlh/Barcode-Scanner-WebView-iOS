@@ -136,10 +136,7 @@ class ViewController: UIViewController, WKScriptMessageHandler {
     
     @objc func applicationWillResignActive(notification: NSNotification){
         print("entering background")
-        if self.webView.isHidden == false {
-            print("Scanner is on, stop scan")
-            self.webView.evaluateJavaScript("stopScan();")
-        }
+        self.webView.evaluateJavaScript("stopScan();")
     }
     
     @objc func applicationDidBecomeActive(notification: NSNotification) {
